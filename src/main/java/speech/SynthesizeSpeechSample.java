@@ -10,6 +10,7 @@ import com.amazonaws.services.polly.model.VoiceId;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ResourceBundle;
 
 public class SynthesizeSpeechSample {
     AmazonPolly client = AmazonPollyClientBuilder.defaultClient();
@@ -38,6 +39,10 @@ public class SynthesizeSpeechSample {
     }
 
     public static void main(String... args) {
+        // see: http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html
+        ResourceBundle config = ResourceBundle.getBundle("config");
+        System.setProperty("aws.accessKeyId", config.getString("aws.accessKeyId"));
+        System.setProperty("aws.secretKey", config.getString("aws.secretKey"));
         SynthesizeSpeechSample app = new SynthesizeSpeechSample();
         app.synthesizeSpeech();
     }
